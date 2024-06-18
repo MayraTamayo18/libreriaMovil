@@ -10,7 +10,9 @@ class config {
     companion object{
         /*
         esta es solo  para el computador que tenga y este compartiendo el internet*/
-        val urlBase="http://192.168.137.1:8000/"
+       /*val urlBase="http://192.168.137.1:8000/api/v1/"*/
+
+        /*url del profesor*/ val urlBase="http://10.192.80.151:8080/api/v1/"
         /*
       en el caso de que a el compurador donde estoy trabajando(andoidEstudio)me estan compartiendo la red wifi */
        /* val urlBase="http://10.192.80.150" este lo debo poner en mi computador personal */

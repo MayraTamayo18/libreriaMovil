@@ -5,11 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
 import com.example.crudlibreria.config.config
 import java.lang.Exception
 
@@ -36,6 +38,7 @@ class guardarLibroFragment : Fragment() {
     private lateinit var txtGenero:EditText
     private lateinit var txtNum_ejem_disponible:EditText
     private lateinit var txtNum_ejem_ocupados:EditText
+    private lateinit var btnGuardar:Button
 
 
     //try-catch intente hacer una peticion si sale un error captura y se muestra un mesaje evitando que se cierre la aplicacion
@@ -63,6 +66,33 @@ class guardarLibroFragment : Fragment() {
                        ).show()
                    }
                )
+               // vamos a crear una variable que almacene todos los datos del metodo
+               {
+                   override fun getParams(): MutableMap<String, String>? {
+                       var parametros=HashMap<String, String>()
+                       //creamos un parametro por cada dato que requiere
+                       /*
+                       parametros.put("titulo",txtTitulo.text.toString())
+                       parametros.put("autor",txtAutor.text.toString())
+                       parametros.put("isbn",txtIsbn.text.toString())
+                       parametros.put("genero",txtGenero.text.toString())
+                       parametros.put("num_ejem_disponible",txtNum_ejem_disponible.text.toString())
+                       parametros.put("num_ejem_ocupados",txtNum_ejem_ocupados.text.toString())*/
+
+                       /* datos del profesor*/
+                       parametros.put("titulo",txtTitulo.text.toString())
+                       parametros.put("nombre_autor",txtAutor.text.toString())
+                       parametros.put("isbn",txtIsbn.text.toString())
+                       parametros.put("genero",txtGenero.text.toString())
+                       parametros.put("num_ejem_disponibles",txtNum_ejem_disponible.text.toString())
+                       parametros.put("num_ejem_ocupados",txtNum_ejem_ocupados.text.toString())
+                       return parametros
+                   }
+               }
+               // se crea la cola del trabajo
+               val queue=Volley.newRequestQueue(context)
+               // se añade la peticion
+               queue.add(request)
 
            }else{// se actualiza el libro
 
@@ -72,6 +102,7 @@ class guardarLibroFragment : Fragment() {
 
         }
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -85,7 +116,18 @@ class guardarLibroFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_guardar_libro, container, false)
+        var view= inflater.inflate(R.layout.fragment_guardar_libro, container, false)
+        txtTitulo=view.findViewById(R.id.textTitulo)
+        txtAutor=view.findViewById(R.id.textAutor)
+        txtIsbn=view.findViewById(R.id.textIsbn)
+        txtGenero=view.findViewById(R.id.textgenero)
+        txtNum_ejem_disponible=view.findViewById(R.id.textNum_ejem_disponible)
+        txtNum_ejem_ocupados=view.findViewById(R.id.textNum_ejem_ocupados)
+        btnGuardar=view.findViewById(R.id.btnGuardar)
+        btnGuardar.setOnClickListener{
+            guardarLibro()
+        }
+        return view
     }
 
     companion object {

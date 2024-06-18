@@ -5,7 +5,9 @@
     <!--solicitar permiso para acceder a interntet -->
     <uses-permission android:name="android.permission.INTERNET"/>
 
+    <!-- <android:usesCleartextTraffic= es para habilitar las peticiones http-->
     <application
+        android:usesCleartextTraffic="true"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
