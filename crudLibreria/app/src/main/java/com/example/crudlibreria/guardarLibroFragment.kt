@@ -10,9 +10,13 @@ import android.widget.EditText
 import android.widget.Toast
 import com.android.volley.Request
 import com.android.volley.Response
+import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.JsonRequest
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.crudlibreria.config.config
+//import com.google.gson.JsonObject //genera error en el put cun¿ando trabajan con json
+import org.json.JSONObject //esta es la que se trabaja para json
 import java.lang.Exception
 
 // TODO: Rename parameter arguments, choose names that match
@@ -42,11 +46,18 @@ class guardarLibroFragment : Fragment() {
 
 
     //try-catch intente hacer una peticion si sale un error captura y se muestra un mesaje evitando que se cierre la aplicacion
+    /*
+    Request es la peticion que hace la api
+    StringRequest=responde un string
+    JsonRequest=responde un json
+    JsonArrayRequest= responde un arreglo de json
+
+    * */
     fun guardarLibro(){
         // esta clase para que cree o actualizar libro
         try {
            if(id==0){ // se crea un nuevo libro
-
+/*
                //se crea la peticion
                val request=object:StringRequest(
                    Request.Method.POST, //metodo de la peticion actualizar
@@ -71,30 +82,42 @@ class guardarLibroFragment : Fragment() {
                    override fun getParams(): MutableMap<String, String>? {
                        var parametros=HashMap<String, String>()
                        //creamos un parametro por cada dato que requiere
-                       /*
+
                        parametros.put("titulo",txtTitulo.text.toString())
                        parametros.put("autor",txtAutor.text.toString())
                        parametros.put("isbn",txtIsbn.text.toString())
                        parametros.put("genero",txtGenero.text.toString())
                        parametros.put("num_ejem_disponible",txtNum_ejem_disponible.text.toString())
-                       parametros.put("num_ejem_ocupados",txtNum_ejem_ocupados.text.toString())*/
-
-                       /* datos del profesor*/
-                       parametros.put("titulo",txtTitulo.text.toString())
-                       parametros.put("nombre_autor",txtAutor.text.toString())
-                       parametros.put("isbn",txtIsbn.text.toString())
-                       parametros.put("genero",txtGenero.text.toString())
-                       parametros.put("num_ejem_disponibles",txtNum_ejem_disponible.text.toString())
                        parametros.put("num_ejem_ocupados",txtNum_ejem_ocupados.text.toString())
+
                        return parametros
                    }
                }
+ */
+               val  parametros=JSONObject()
+               parametros.put("titulo",txtTitulo.text.toString())
+               parametros.put("autor",txtAutor.text.toString())
+               parametros.put("isbn",txtIsbn.text.toString())
+               parametros.put("genero",txtGenero.text.toString())
+               parametros.put("num_ejem_disponible",txtNum_ejem_disponible.text.toString())
+               parametros.put("num_ejem_ocupados",txtNum_ejem_ocupados.text.toString())
+
+               var request= JsonObjectRequest(
+                   Request.Method.POST, //metodo
+                   config.urlLibro, //ur
+                   parametros,//datos de la peticion
+                   {response->Toast.makeText( context,"se guardor correctamente", Toast.LENGTH_SHORT).show() },//cuando la respuesta es correcta
+                   
+                   {error->Toast.makeText(context, "se genero un error", Toast.LENGTH_LONG).show() }//cuando es incorrecta
+               )
+
+
                // se crea la cola del trabajo
                val queue=Volley.newRequestQueue(context)
                // se añade la peticion
                queue.add(request)
 
-           }else{// se actualiza el libro
+           }else{ // se actualiza el libro
 
            }
         }
