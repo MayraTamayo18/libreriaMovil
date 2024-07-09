@@ -38,7 +38,7 @@ class guardarLibroFragment : Fragment() {
     private var param2: String? = null
 
     // definimos las variables del formulario
-    private var id:Int=1 // el entero no se puede quedar nulo
+    private var id:Int=7 // el entero no se puede quedar nulo
     private lateinit var txtTitulo:EditText
     private lateinit var txtAutor:EditText
     private lateinit var txtIsbn:EditText
@@ -59,35 +59,37 @@ class guardarLibroFragment : Fragment() {
     * */
     //metodo encargado de traer la informacion del libro
     fun consultarLibro(){
-    // solo se debe consultar si el id es diferente a vacio
-     if(id!=0){
-         var request= JsonObjectRequest(
-             Request.Method.GET, //metodo
-             config.urlLibro, //ur
-             null,//datos de la peticion
-             {response->
-             //variable response contiene la respuesta de la api
-             //se convierte en json a un objeto tipo libro
-                 //generamos un objeto de la libreria gson
-               val gson=Gson()
-                 //se convierte
-               val libro: libro =gson.fromJson(response.toString(),libro::class.java)
-               // se modifica el atributo text de los campos con el valor del objeto
-               txtTitulo.setText(response.getString("titulo"))
-               txtAutor.setText(response.getString("autor"))
-               txtIsbn.setText(response.getString("isbn"))
-               txtGenero.setText(response.getString("genero"))
-               txtNum_ejem_disponible.setText(response.getInt("num_ejem_disponible").toString())
-               txtNum_ejem_ocupados.setText(response.getInt("num_ejem_ocupados").toString())
-                 
-             },//cuando la respuesta es correcta
-             {error->Toast.makeText(context,"Error al consultar",Toast.LENGTH_LONG).show() }//cuando es incorrecta
-         )
-     }
+      // solo se debe consultar si el id es diferente a vacio
+         if(id!=0){
+             var request= JsonObjectRequest(
+                 Request.Method.GET, //metodo
+                 config.urlLibro + id, //ur
+                 null,//datos de la peticion
+                 {response->
+                 //variable response contiene la respuesta de la api
+                 //se convierte en json a un objeto tipo libro
+                     //generamos un objeto de la libreria gson
+                   val gson=Gson()
+                     //se convierte
+                   val libro: libro =gson.fromJson(response.toString(),libro::class.java)
+                   // se modifica el atributo text de los campos con el valor del objeto
+                   txtTitulo.setText(response.getString("titulo"))
+                   txtAutor.setText(response.getString("autor"))
+                   txtIsbn.setText(response.getString("isbn"))
+                   txtGenero.setText(response.getString("genero"))
+                   txtNum_ejem_disponible.setText(response.getInt("num_ejem_disponible").toString())
+                   txtNum_ejem_ocupados.setText(response.getInt("num_ejem_ocupados").toString())
 
-
-
+                 },//cuando la respuesta es correcta
+                 {error->Toast.makeText(context,"Error al consultar",Toast.LENGTH_LONG).show() }//cuando es incorrecta
+             )
+             // se crea la cola del trabajo
+             val queue=Volley.newRequestQueue(context)
+             // se añade la peticion
+             queue.add(request)
+         }
     }
+
     fun guardarLibro(){
         // esta clase para que cree o actualizar libro
         try {
@@ -162,7 +164,28 @@ class guardarLibroFragment : Fragment() {
                queue.add(request)
 
            }else{ // se actualiza el libro
+               //editar
+               val  parametros=JSONObject()
+               parametros.put("titulo",txtTitulo.text.toString())
+               parametros.put("autor",txtAutor.text.toString())
+               parametros.put("isbn",txtIsbn.text.toString())
+               parametros.put("genero",txtGenero.text.toString())
+               parametros.put("num_ejem_disponible",txtNum_ejem_disponible.text.toString())
+               parametros.put("num_ejem_ocupados",txtNum_ejem_ocupados.text.toString())
 
+               var request= JsonObjectRequest(
+                   Request.Method.PUT, //metodo
+                   config.urlLibro + id + "/", //ur
+                   parametros,//datos de la peticion
+                   {response->Toast.makeText( context,"se Actualizo correctamente", Toast.LENGTH_SHORT).show() },//cuando la respuesta es correcta
+
+                   {error->Toast.makeText(context, "se genero un error", Toast.LENGTH_LONG).show() }//cuando es incorrecta
+               )
+
+               // se crea la cola del trabajo
+               val queue=Volley.newRequestQueue(context)
+               // se añade la peticion
+               queue.add(request)
            }
         }
         catch (erro:Exception){ // esta variable captura el error
@@ -193,7 +216,9 @@ class guardarLibroFragment : Fragment() {
         btnGuardar=view.findViewById(R.id.btnGuardar)
         btnGuardar.setOnClickListener{
             guardarLibro()
+
         }
+        consultarLibro()
         return view
     }
 
