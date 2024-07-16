@@ -1,27 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@mipmap/libros1"
     tools:context=".detalleLibroFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <com.google.android.material.appbar.MaterialToolbar
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content"
+        android:background="#6A4E"
+        app:titleTextColor="@color/white"
+        app:title="Detalle Libro"/>
+
+    <!-- TODO: Update blank fragment layout -->
 
     <LinearLayout
-        android:layout_width="360dp"
-        android:layout_height="715dp"
+        android:layout_width="346dp"
+        android:layout_height="669dp"
         android:layout_marginHorizontal="30dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="70dp"
         android:orientation="vertical">
+
 
         <TextView
             android:id="@+id/lblTitulo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Titulo" />
+            android:text="Titulo"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp" />
 
         <EditText
             android:id="@+id/textTitulo"
@@ -34,7 +43,9 @@
             android:id="@+id/lblAutor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Autor" />
+            android:text="Autor"
+            android:textColor="#FAF7F7"
+            android:textSize="20sp" />
 
         <EditText
             android:id="@+id/txtAutor"
@@ -47,7 +58,9 @@
             android:id="@+id/lblIsbn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="isbn" />
+            android:text="isbn"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp" />
 
         <EditText
             android:id="@+id/textIsbn"
@@ -60,7 +73,9 @@
             android:id="@+id/lblGenero"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Genero" />
+            android:text="Genero"
+            android:textColor="#FFFDFD"
+            android:textSize="20sp" />
 
         <EditText
             android:id="@+id/textGenero"
@@ -73,7 +88,9 @@
             android:id="@+id/lblNum_ejem_disponible"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Ejemplares Disponibles" />
+            android:text="Ejemplares Disponibles"
+            android:textColor="#F6F0F0"
+            android:textSize="20sp" />
 
         <EditText
             android:id="@+id/textNum_ejem_disponible"
@@ -86,7 +103,9 @@
             android:id="@+id/lblNum_ejem_ocupados"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Ejemplares Ocupados" />
+            android:text="Ejemplares Ocupados"
+            android:textColor="#FAF9F9"
+            android:textSize="20sp" />
 
         <EditText
             android:id="@+id/textNum_ejem_ocupados"
@@ -102,12 +121,12 @@
 
             <Button
                 android:id="@+id/btnEditar"
-                android:layout_width="133dp"
-                android:layout_height="wrap_content"
+                android:layout_width="171dp"
+                android:layout_height="52dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_weight="1"
-                android:text="Button" />
+                app:icon="@drawable/eliminar" />
 
             <Button
                 android:id="@+id/btnEliminar"
@@ -116,7 +135,8 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_weight="1"
-                android:text="Button" />
+                android:text="Button"
+                app:icon="@drawable/eliminar" />
         </LinearLayout>
 
     </LinearLayout>
