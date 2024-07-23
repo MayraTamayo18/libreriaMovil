@@ -1,10 +1,21 @@
 package com.example.crudlibreria
 
+import android.app.Application
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.compose.ui.window.application
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.android.volley.Request
+import com.android.volley.toolbox.JsonArrayRequest
+import com.android.volley.toolbox.Volley
+import com.example.crudlibreria.adapter.adapterLibro
+import com.example.crudlibreria.config.config
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -29,12 +40,50 @@ class listaLibroFragment : Fragment() {
         }
     }
 
+    //fun CambioLibroDetalle(view: View){
+    //    var intent = Intent(application, detalleLibroFragment::class.java)
+    //    startActivity(intent)
+    //}
+
+    private lateinit var View: View
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_lista_libro, container, false)
+        View= inflater.inflate(R.layout.fragment_lista_libro, container, false)
+        cargar_libro()
+        return View
+    }
+
+    fun cargar_libro(){
+        try {
+            var request=JsonArrayRequest(
+                Request.Method.GET,
+                config.urlLibro,
+                null,
+                {response->
+                    var registro=response
+                    //se crea y asocia una variable con el objeto de la vista
+                    var recycler=View.findViewById<RecyclerView>(R.id.RVLibros)
+                    recycler.layoutManager= LinearLayoutManager(requireContext())
+                    //se crea el adaptador
+                    var adapterEmployed= adapterLibro(registro,requireContext())
+                    //se asocia el adaptador con el objeto
+                    recycler.adapter=adapterEmployed
+                },
+                { error->
+                    Toast.makeText(context,"Error en la consulta",Toast.LENGTH_LONG).show()
+                }
+            )
+            val queue= Volley.newRequestQueue(context)
+            queue.add(request)
+        }catch (e:Exception){
+
+        }
+
     }
 
     companion object {
@@ -57,3 +106,4 @@ class listaLibroFragment : Fragment() {
             }
     }
 }
+

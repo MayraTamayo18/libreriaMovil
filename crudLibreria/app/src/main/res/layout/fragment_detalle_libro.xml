@@ -33,7 +33,7 @@
             android:textSize="20sp" />
 
         <EditText
-            android:id="@+id/textTitulo"
+            android:id="@+id/txtTitulo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -63,7 +63,7 @@
             android:textSize="20sp" />
 
         <EditText
-            android:id="@+id/textIsbn"
+            android:id="@+id/txtIsbn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -78,7 +78,7 @@
             android:textSize="20sp" />
 
         <EditText
-            android:id="@+id/textGenero"
+            android:id="@+id/txtGenero"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -93,7 +93,7 @@
             android:textSize="20sp" />
 
         <EditText
-            android:id="@+id/textNum_ejem_disponible"
+            android:id="@+id/txtNum_ejem_disponible"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -108,7 +108,7 @@
             android:textSize="20sp" />
 
         <EditText
-            android:id="@+id/textNum_ejem_ocupados"
+            android:id="@+id/txtNum_ejem_ocupados"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -121,22 +121,14 @@
 
             <Button
                 android:id="@+id/btnEditar"
-                android:layout_width="171dp"
+                android:layout_width="124dp"
                 android:layout_height="52dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_weight="1"
-                app:icon="@drawable/eliminar" />
-
-            <Button
-                android:id="@+id/btnEliminar"
-                android:layout_width="133dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_weight="1"
-                android:text="Button"
-                app:icon="@drawable/eliminar" />
+                app:icon="@drawable/guardar"
+                app:iconGravity="textStart"
+                app:iconSize="25dp" />
         </LinearLayout>
 
     </LinearLayout>

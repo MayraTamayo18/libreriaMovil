@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import com.android.volley.Request
@@ -106,7 +105,7 @@ class detalleLibroFragment : Fragment() {
 
         btnEditar=view.findViewById(R.id.btnEditar)
         btnEditar.setOnClickListener{editarLibro()}
-        btnEliminar= view.findViewById(R.id.btnEliminar)
+        btnEliminar= view.findViewById(R.id.btnEditar)
         btnEliminar.setOnClickListener{eliminarLibro()}
 
         return view

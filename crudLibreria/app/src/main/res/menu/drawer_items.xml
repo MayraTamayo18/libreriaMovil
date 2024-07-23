@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:icon="@drawable/bars_solid"
+        android:id="@+id/navMenu"
+        android:title="Menu" />
+     <item
+         android:icon="@drawable/book_solid"
+         android:id="@+id/navLibro"
+         android:title="libro" />
+
+    <item
+        android:icon="@drawable/user_solid"
+        android:id="@+id/navUsuario"
+        android:title="usuario" />
+    <item
+        android:icon="@drawable/list_solid"
+        android:id="@+id/navPrestamo"
+        android:title="prestamo" />
+    <item
+        android:icon="@drawable/book_solid"
+        android:id="@+id/navMulta"
+        android:title="Multa" />
+</menu>
