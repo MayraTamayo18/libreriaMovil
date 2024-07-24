@@ -4,16 +4,19 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.crudlibreria.R
 import com.example.crudlibreria.models.libro
 import org.json.JSONArray
+import org.json.JSONObject
 
 class adapterLibro
     (
     var listLibro: JSONArray,
-    var context: Context
+    var context: Context,
+
     ): RecyclerView.Adapter<adapterLibro.MyHolder>()
     {
         /*
@@ -26,9 +29,15 @@ class adapterLibro
              */
             lateinit var lblTitulo: TextView
             lateinit var lblAutor: TextView
+            lateinit var btnEditar: Button
+
             init{
                 lblTitulo=itemView.findViewById(R.id.lblTitulo)
                 lblAutor=itemView.findViewById(R.id.lblAutor)
+                btnEditar=itemView.findViewById(R.id.btnEditar)
+
+
+
             }
         }
 
@@ -37,13 +46,23 @@ class adapterLibro
             return MyHolder(itemView)
         }
 
+        //variable que almacena la función onclick nuevo que puse
+        var onclick:((JSONObject)->Unit)?=null
+
         override fun onBindViewHolder(holder: adapterLibro.MyHolder, position: Int) {
             //obtener el registro
             val libro=listLibro.getJSONObject(position)
             //asignar valores
             holder.lblTitulo.text=libro.getString("titulo")
             holder.lblAutor.text=libro.getString("autor")
+
+
+            //se crea la función del onclick nuevo que puse
+            holder.btnEditar.setOnClickListener{
+                onclick?.invoke(listLibro.getJSONObject(position))
+            }
         }
+
         /*
         getItemCount: retorna el número de elementos
         de la lista

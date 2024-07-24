@@ -37,6 +37,11 @@ class detalleLibroFragment : Fragment() {
             param2 = it.getString(ARG_PARAM2)
         }
     }
+    //fun CambioLibroDetalle(view: View){
+    //    var intent = Intent(application {detalleLibroFragment::class.java })
+    //   startActivity(intent)
+    //}
+
 
     // definir las variables
 
@@ -53,7 +58,7 @@ class detalleLibroFragment : Fragment() {
 
 
     // se asigna un id temporal existente
-    private var id:Int=7 // el entero no se puede quedar nulo
+    private var id:Int=0 // el entero no se puede quedar nulo
 
     fun consultarLibro(){
         // solo se debe consultar si el id es diferente a vacio
@@ -103,9 +108,9 @@ class detalleLibroFragment : Fragment() {
         //se ejecuta la consulta
         consultarLibro()
 
-        btnEditar=view.findViewById(R.id.btnEditar)
+        btnEditar=view.findViewById(R.id.btnGuardar)
         btnEditar.setOnClickListener{editarLibro()}
-        btnEliminar= view.findViewById(R.id.btnEditar)
+        btnEliminar= view.findViewById(R.id.btnGuardar)
         btnEliminar.setOnClickListener{eliminarLibro()}
 
         return view

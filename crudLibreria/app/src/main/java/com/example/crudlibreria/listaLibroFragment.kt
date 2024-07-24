@@ -71,6 +71,22 @@ class listaLibroFragment : Fragment() {
                     recycler.layoutManager= LinearLayoutManager(requireContext())
                     //se crea el adaptador
                     var adapterEmployed= adapterLibro(registro,requireContext())
+
+                    //acción cuando se hace click sobre el item nuevo que puse
+                    adapterEmployed.onclick={
+                        //cambio de fragmanto desde otro nuevo
+                        val bundle=Bundle()
+                        bundle.putInt("id",it.getInt("id"))
+                        val transaction=requireFragmentManager()
+                            .beginTransaction()
+                        var fragmento=guardarLibroFragment()
+                        fragmento.arguments=bundle
+                        transaction.replace(
+                            R.id.fragmentContainerView,
+                            fragmento).commit()
+                        transaction.addToBackStack(null)
+                    }
+
                     //se asocia el adaptador con el objeto
                     recycler.adapter=adapterEmployed
                 },
@@ -85,6 +101,7 @@ class listaLibroFragment : Fragment() {
         }
 
     }
+
 
     companion object {
         /**
