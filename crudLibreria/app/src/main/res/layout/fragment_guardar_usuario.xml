@@ -5,15 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@mipmap/libros1"
-    tools:context=".guardarLibroFragment">
+    tools:context=".guardarUsuarioFragment">
 
     <com.google.android.material.appbar.MaterialToolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#6A4E"
         app:titleTextColor="@color/white"
-        app:title="Libros"/>
-     <!-- TODO: Update blank fragment layout -->
+        app:title="Usuarios"/>
+    <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
@@ -26,94 +26,65 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/lblTitulo"
+            android:id="@+id/lblNombre"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Titulo"
+            android:text="Nombre"
             android:textColor="#FDFBFB"
             android:textSize="20sp" />
 
         <EditText
-            android:id="@+id/textTitulo"
+            android:id="@+id/textNombre"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="text" />
 
         <TextView
-            android:id="@+id/lblAutor"
+            android:id="@+id/lblDireccion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/lblAutor"
+            android:text="Direccion"
             android:textColor="#FBFBFB"
             android:textSize="20sp" />
 
         <EditText
-            android:id="@+id/textAutor"
+            android:id="@+id/textDireccion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="text" />
 
         <TextView
-            android:id="@+id/lblIsbn"
+            android:id="@+id/lblCorreo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Isbn"
+            android:text="Correo"
             android:textColor="#FFFFFF"
             android:textSize="20sp" />
 
         <EditText
-            android:id="@+id/textIsbn"
+            android:id="@+id/textCorreo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="text" />
 
         <TextView
-            android:id="@+id/lblGenero"
+            android:id="@+id/lblTipoUsuario"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Genero"
+            android:text="TipoUsuario"
             android:textColor="#FAF6F6"
             android:textSize="20sp" />
 
-        <EditText
-            android:id="@+id/textgenero"
+        <Spinner
+            android:id="@+id/tipoUsuario"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="text" />
-
-        <TextView
-            android:id="@+id/lblNum_ejem_disponible"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Ejemplares Disponibles"
-            android:textColor="#FDFCFC"
+            android:spinnerMode="dropdown"
+            android:textColor="#FAF6F6"
             android:textSize="20sp" />
-
-        <EditText
-            android:id="@+id/textNum_ejem_disponible"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="text" />
-
-        <TextView
-            android:id="@+id/lblNum_ejem_ocupados"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Ejemplares Ocupados"
-            android:textColor="#FAF9F9"
-            android:textSize="20sp" />
-
-        <EditText
-            android:id="@+id/textNum_ejem_ocupados"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="text" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -146,7 +117,6 @@
                 app:iconGravity="textStart"
                 app:iconSize="25dp" />
         </LinearLayout>
-
     </LinearLayout>
 
 </FrameLayout>

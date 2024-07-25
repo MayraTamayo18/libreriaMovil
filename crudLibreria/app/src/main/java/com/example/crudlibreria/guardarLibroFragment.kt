@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import com.android.volley.Request
 import com.android.volley.Request.Method
 import com.android.volley.Response
@@ -15,6 +16,7 @@ import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.JsonRequest
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import com.example.crudlibreria.adapter.adapterLibro
 import com.example.crudlibreria.config.config
 import com.example.crudlibreria.models.libro
 import com.google.gson.Gson
@@ -38,7 +40,7 @@ class guardarLibroFragment : Fragment() {
     private var param2: String? = null
 
     // definimos las variables del formulario
-    private var id:Int=7 // el entero no se puede quedar nulo
+    private var id:Int=0 // el entero no se puede quedar nulo
     private lateinit var txtTitulo:EditText
     private lateinit var txtAutor:EditText
     private lateinit var txtIsbn:EditText
@@ -152,7 +154,18 @@ class guardarLibroFragment : Fragment() {
                    Request.Method.POST, //metodo
                    config.urlLibro, //ur
                    parametros,//datos de la peticion
-                   {response->Toast.makeText( context,"se guardor correctamente", Toast.LENGTH_SHORT).show() },//cuando la respuesta es correcta
+                   {response->
+                       Toast.makeText( context,"se guardor correctamente", Toast.LENGTH_SHORT).show()
+
+                   // aqui se redirecciona
+                       val transaction=requireFragmentManager()
+                           .beginTransaction()
+                       var fragmento=listaLibroFragment()
+                       transaction.replace(
+                           R.id.fragmentContainerView,
+                           fragmento).commit()
+                       transaction.addToBackStack(null)
+                   },//cuando la respuesta es correcta
 
                    {error->Toast.makeText(context, "se genero un error", Toast.LENGTH_LONG).show() }//cuando es incorrecta
                )
@@ -177,10 +190,21 @@ class guardarLibroFragment : Fragment() {
                    Request.Method.PUT, //metodo
                    config.urlLibro + id + "/", //ur
                    parametros,//datos de la peticion
-                   {response->Toast.makeText( context,"se Actualizo correctamente", Toast.LENGTH_SHORT).show() },//cuando la respuesta es correcta
+                   {response->
+                       Toast.makeText( context,"se Actualizo correctamente", Toast.LENGTH_SHORT).show()
+                       val transaction=requireFragmentManager()
+                           .beginTransaction()
+                       var fragmento=listaLibroFragment()
+                       transaction.replace(
+                           R.id.fragmentContainerView,
+                           fragmento).commit()
+                       transaction.addToBackStack(null)
+                   },//cuando la respuesta es correcta
 
                    {error->Toast.makeText(context, "se genero un error", Toast.LENGTH_LONG).show() }//cuando es incorrecta
                )
+               //acción cuando se hace click sobre el item nuevo que puse
+
 
                // se crea la cola del trabajo
                val queue=Volley.newRequestQueue(context)
@@ -191,6 +215,8 @@ class guardarLibroFragment : Fragment() {
         catch (erro:Exception){ // esta variable captura el error
 
         }
+        //mensaje de que el registro se guardo
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -30,14 +30,13 @@ class adapterLibro
             lateinit var lblTitulo: TextView
             lateinit var lblAutor: TextView
             lateinit var btnEditar: Button
+            lateinit var  btnEliminar:Button
 
             init{
                 lblTitulo=itemView.findViewById(R.id.lblTitulo)
                 lblAutor=itemView.findViewById(R.id.lblAutor)
                 btnEditar=itemView.findViewById(R.id.btnEditar)
-
-
-
+                btnEliminar=itemView.findViewById(R.id.btnEliminar)
             }
         }
 
@@ -48,6 +47,7 @@ class adapterLibro
 
         //variable que almacena la función onclick nuevo que puse
         var onclick:((JSONObject)->Unit)?=null
+        var onclickEliminar:((JSONObject)->Unit)?=null
 
         override fun onBindViewHolder(holder: adapterLibro.MyHolder, position: Int) {
             //obtener el registro
@@ -60,6 +60,10 @@ class adapterLibro
             //se crea la función del onclick nuevo que puse
             holder.btnEditar.setOnClickListener{
                 onclick?.invoke(listLibro.getJSONObject(position))
+            }
+
+            holder.btnEliminar.setOnClickListener{
+                onclickEliminar?.invoke(listLibro.getJSONObject(position))
             }
         }
 

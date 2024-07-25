@@ -18,6 +18,7 @@ class config {
       en el caso de que a el compurador donde estoy trabajando(andoidEstudio)me estan compartiendo la red wifi */
        /* val urlBase="http://10.192.80.150" este lo debo poner en mi computador personal */
         val urlLibro= urlBase+"libro/"
+        val urlUsuario= urlBase+"usuario/"
 
     }
 }

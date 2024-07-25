@@ -8,14 +8,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.compose.ui.window.application
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonArrayRequest
+import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.crudlibreria.adapter.adapterLibro
 import com.example.crudlibreria.config.config
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -40,10 +44,6 @@ class listaLibroFragment : Fragment() {
         }
     }
 
-    //fun CambioLibroDetalle(view: View){
-    //    var intent = Intent(application, detalleLibroFragment::class.java)
-    //    startActivity(intent)
-    //}
 
     private lateinit var View: View
 
@@ -55,8 +55,11 @@ class listaLibroFragment : Fragment() {
         // Inflate the layout for this fragment
         View= inflater.inflate(R.layout.fragment_lista_libro, container, false)
         cargar_libro()
+        var btnAgregar=View.findViewById<FloatingActionButton>(R.id.btnAgregar)
+        btnAgregar.setOnClickListener{AgregarLibro()}
         return View
     }
+
 
     fun cargar_libro(){
         try {
@@ -70,10 +73,10 @@ class listaLibroFragment : Fragment() {
                     var recycler=View.findViewById<RecyclerView>(R.id.RVLibros)
                     recycler.layoutManager= LinearLayoutManager(requireContext())
                     //se crea el adaptador
-                    var adapterEmployed= adapterLibro(registro,requireContext())
+                    var adapterLibro= adapterLibro(registro,requireContext())
 
                     //acción cuando se hace click sobre el item nuevo que puse
-                    adapterEmployed.onclick={
+                    adapterLibro.onclick={
                         //cambio de fragmanto desde otro nuevo
                         val bundle=Bundle()
                         bundle.putInt("id",it.getInt("id"))
@@ -86,9 +89,31 @@ class listaLibroFragment : Fragment() {
                             fragmento).commit()
                         transaction.addToBackStack(null)
                     }
-
+                    adapterLibro.onclickEliminar={
+                        // mensaje de que si deseas eliminar
+                        val builder = AlertDialog.Builder(requireContext())
+                        builder.setMessage("Desea eliminar este Registro")
+                            .setPositiveButton("Si") { dialog, id ->
+                                // START THE GAME! eliminar funcion  Llmara la funcion  eliminar()
+                                EliminarLibro(it.getInt("id"))
+                             // redirije a la vista de listar libro recargada pero aun me aparece un error
+                                val transaction=requireFragmentManager()
+                                    .beginTransaction()
+                                var fragmento=listaLibroFragment()
+                                transaction.replace(
+                                    R.id.fragmentContainerView,
+                                    fragmento).commit()
+                                transaction.addToBackStack(null)
+                            }
+                            .setNegativeButton("No") { dialog, id ->
+                                // User cancelled the dialog.
+                            }
+                        // Create the AlertDialog object and return it.
+                        builder.create()
+                        builder.show()
+                    }
                     //se asocia el adaptador con el objeto
-                    recycler.adapter=adapterEmployed
+                    recycler.adapter=adapterLibro
                 },
                 { error->
                     Toast.makeText(context,"Error en la consulta",Toast.LENGTH_LONG).show()
@@ -101,7 +126,43 @@ class listaLibroFragment : Fragment() {
         }
 
     }
+// crear la funcion de eliminar libro que es la misma de cargar libro con el delete
 
+    fun EliminarLibro(id: Int){
+        try {
+            /*
+            JsonArrayRequest=arreglo json
+            JsonObjectRequest=Json
+            StringRequest=texto, incluyendo ""
+             */
+            var request=JsonObjectRequest(
+                Request.Method.DELETE,
+                config.urlLibro+id+"/",
+                null,
+                {response->
+                  cargar_libro()
+                    Toast.makeText(context,"se elimino correctamente ",Toast.LENGTH_LONG).show()
+                },
+                { error->
+                    Toast.makeText(context,"Error",Toast.LENGTH_LONG).show()
+                }
+            )
+            val queue= Volley.newRequestQueue(context)
+            queue.add(request)
+        }catch (e:Exception){
+
+        }
+
+    }
+    fun AgregarLibro(){
+        val transaction=requireFragmentManager()
+            .beginTransaction()
+        var fragmento=guardarLibroFragment()
+        transaction.replace(
+            R.id.fragmentContainerView,
+            fragmento).commit()
+        transaction.addToBackStack(null)
+    }
 
     companion object {
         /**

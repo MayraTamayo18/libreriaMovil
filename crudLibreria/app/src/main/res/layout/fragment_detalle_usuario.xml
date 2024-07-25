@@ -5,115 +5,85 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@mipmap/libros1"
-    tools:context=".guardarLibroFragment">
+    tools:context=".detalleUsuarioFragment">
 
     <com.google.android.material.appbar.MaterialToolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#6A4E"
         app:titleTextColor="@color/white"
-        app:title="Libros"/>
-     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        app:title="Usuario"/>
+
+    <!-- TODO: Update blank fragment layout -->
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="715dp"
+        android:layout_width="346dp"
+        android:layout_height="669dp"
         android:layout_marginHorizontal="30dp"
         android:layout_marginTop="70dp"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/lblTitulo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Titulo"
-            android:textColor="#FDFBFB"
-            android:textSize="20sp" />
-
-        <EditText
-            android:id="@+id/textTitulo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="text" />
 
         <TextView
-            android:id="@+id/lblAutor"
+            android:id="@+id/lblNombre"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/lblAutor"
-            android:textColor="#FBFBFB"
-            android:textSize="20sp" />
-
-        <EditText
-            android:id="@+id/textAutor"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="text" />
-
-        <TextView
-            android:id="@+id/lblIsbn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Isbn"
+            android:text="Nombre"
             android:textColor="#FFFFFF"
             android:textSize="20sp" />
 
         <EditText
-            android:id="@+id/textIsbn"
+            android:id="@+id/txtNombre"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="text" />
 
         <TextView
-            android:id="@+id/lblGenero"
+            android:id="@+id/lblDireccion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Genero"
+            android:text="Direccion"
+            android:textColor="#FAF7F7"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/txtDireccion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="text" />
+
+        <TextView
+            android:id="@+id/lblCorreo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Correo"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/txtCorreo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="text" />
+
+        <TextView
+            android:id="@+id/lbltipoUsuario"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="tipo de usuario"
+            android:textColor="#FFFDFD"
+            android:textSize="20sp" />
+
+        <Spinner
+            android:id="@+id/tipoUsuario"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:spinnerMode="dropdown"
             android:textColor="#FAF6F6"
             android:textSize="20sp" />
-
-        <EditText
-            android:id="@+id/textgenero"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="text" />
-
-        <TextView
-            android:id="@+id/lblNum_ejem_disponible"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Ejemplares Disponibles"
-            android:textColor="#FDFCFC"
-            android:textSize="20sp" />
-
-        <EditText
-            android:id="@+id/textNum_ejem_disponible"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="text" />
-
-        <TextView
-            android:id="@+id/lblNum_ejem_ocupados"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Ejemplares Ocupados"
-            android:textColor="#FAF9F9"
-            android:textSize="20sp" />
-
-        <EditText
-            android:id="@+id/textNum_ejem_ocupados"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="text" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -122,28 +92,23 @@
 
             <Button
                 android:id="@+id/btnGuardar"
-                android:layout_width="133dp"
-                android:layout_height="wrap_content"
+                android:layout_width="124dp"
+                android:layout_height="52dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_weight="1"
-                android:text="guardar"
-                android:textSize="19dp"
                 app:icon="@drawable/guardar"
                 app:iconGravity="textStart"
                 app:iconSize="25dp" />
 
             <Button
-                android:id="@+id/button2"
-                android:layout_width="133dp"
-                android:layout_height="wrap_content"
+                android:id="@+id/button"
+                android:layout_width="124dp"
+                android:layout_height="52dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_weight="1"
-                android:text="volver"
-                android:textSize="19dp"
                 app:icon="@drawable/devolver"
-                app:iconGravity="textStart"
                 app:iconSize="25dp" />
         </LinearLayout>
 
