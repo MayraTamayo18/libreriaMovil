@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".guardarUsuarioFragment">
+    tools:context=".guardarPrestamoFragment">
 
     <com.google.android.material.appbar.MaterialToolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#66890CDC"
-        app:title="Usuarios"
+        app:title="prestamo"
         app:titleTextColor="@color/black" />
     <!-- TODO: Update blank fragment layout -->
     <TextView
@@ -25,60 +25,45 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/lblNombre"
+            android:id="@+id/lblFecha_prestamo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Nombre"
+            android:text="Fecha prestamo"
             android:textColor="#0D0D0D"
             android:textSize="20sp" />
 
         <EditText
-            android:id="@+id/textNombre"
+            android:id="@+id/textFecha_prestamo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="text" />
+            android:inputType="date" />
 
         <TextView
-            android:id="@+id/lblDireccion"
+            android:id="@+id/lblFecha_devolucion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Direccion"
+            android:text="Fecha Devolucion"
             android:textColor="#0B0B0B"
             android:textSize="20sp" />
 
         <EditText
-            android:id="@+id/textDireccion"
+            android:id="@+id/textFecha_devolucion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="text" />
+            android:inputType="date" />
 
         <TextView
-            android:id="@+id/lblCorreo"
+            android:id="@+id/lblEstado"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Correo"
+            android:text="Estado"
             android:textColor="#090909"
             android:textSize="20sp" />
 
-        <EditText
-            android:id="@+id/textCorreo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="text" />
-
-        <TextView
-            android:id="@+id/lblTipoUsuario"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TipoUsuario"
-            android:textColor="#0D0C0C"
-            android:textSize="20sp" />
-
         <Spinner
-            android:id="@+id/SpinnerTipoUsuario"
+            android:id="@+id/SpinnerEstado"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:animationCache="true"
@@ -88,6 +73,36 @@
             android:spinnerMode="dialog"
             android:textColor="#FAF6F6"
             android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/lblUsuario_prestamo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TipoUsuario"
+            android:textColor="#0D0C0C"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/textUsuario_prestamo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="text" />
+
+        <TextView
+            android:id="@+id/lblLibro_prestamo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="libro"
+            android:textColor="#0D0C0C"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/textLibro_prestamo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="text" />
 
         <LinearLayout
             android:layout_width="match_parent"

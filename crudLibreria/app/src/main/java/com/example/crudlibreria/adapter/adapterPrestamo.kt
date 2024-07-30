@@ -11,12 +11,12 @@ import com.example.crudlibreria.R
 import org.json.JSONArray
 import org.json.JSONObject
 
-class adapterUsuario
+class adapterPrestamo
     (
-    var listUsuario: JSONArray,
+    var listPrestamo: JSONArray,
     var context: Context,
 
-    ): RecyclerView.Adapter<adapterUsuario.MyHolder>()
+    ): RecyclerView.Adapter<adapterPrestamo.MyHolder>()
 {
     /*
     Se crea la clase Myholder
@@ -26,21 +26,21 @@ class adapterUsuario
         Dentro de la clase MyHolder se crea las variables
         y se asocian los objetos de la vista item
          */
-        lateinit var lblNombre: TextView
-        lateinit var lblCorreo: TextView
+        lateinit var lblUsuario_prestamo: TextView
+        lateinit var lblLibro_prestamo: TextView
         lateinit var btnEditar: Button
-        lateinit var  btnEliminar: Button
+        lateinit var btnEliminar: Button
 
         init{
-            lblNombre=itemView.findViewById(R.id.lblNombre)
-            lblCorreo=itemView.findViewById(R.id.lblCorreo)
+            lblUsuario_prestamo=itemView.findViewById(R.id.lblUsuario_prestamo)
+            lblLibro_prestamo=itemView.findViewById(R.id.lblLibro_prestamo)
             btnEditar=itemView.findViewById(R.id.btnEditar)
             btnEliminar=itemView.findViewById(R.id.btnEliminar)
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): adapterUsuario.MyHolder {
-        var itemView= LayoutInflater.from(context).inflate(R.layout.item_usuario,parent,false)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): adapterPrestamo.MyHolder {
+        var itemView= LayoutInflater.from(context).inflate(R.layout.item_prestamo,parent,false)
         return MyHolder(itemView)
     }
 
@@ -48,21 +48,21 @@ class adapterUsuario
     var onclick:((JSONObject)->Unit)?=null
     var onclickEliminar:((JSONObject)->Unit)?=null
 
-    override fun onBindViewHolder(holder: adapterUsuario.MyHolder, position: Int) {
+    override fun onBindViewHolder(holder: adapterPrestamo.MyHolder, position: Int) {
         //obtener el registro
-        val libro=listUsuario.getJSONObject(position)
+        val prestamo=listPrestamo.getJSONObject(position)
         //asignar valores
-        holder.lblNombre.text=libro.getString("nombre")
-        holder.lblCorreo.text=libro.getString("correo")
+        holder.lblUsuario_prestamo.text=prestamo.getString("usuario_prestamo")
+        holder.lblLibro_prestamo.text=prestamo.getString("libro_prestamo")
 
 
         //se crea la función del onclick nuevo que puse
         holder.btnEditar.setOnClickListener{
-            onclick?.invoke(listUsuario.getJSONObject(position))
+            onclick?.invoke(listPrestamo.getJSONObject(position))
         }
 
         holder.btnEliminar.setOnClickListener{
-            onclickEliminar?.invoke(listUsuario.getJSONObject(position))
+            onclickEliminar?.invoke(listPrestamo.getJSONObject(position))
         }
     }
 
@@ -71,7 +71,7 @@ class adapterUsuario
     de la lista
      */
     override fun getItemCount(): Int {
-        return listUsuario.length()
+        return listPrestamo.length()
     }
 
 }

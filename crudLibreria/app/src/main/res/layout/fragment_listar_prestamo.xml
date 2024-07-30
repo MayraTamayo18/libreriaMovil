@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".listarUsuarioFragment">
+    tools:context=".listaPrestamoFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -13,11 +13,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#6A4E"
-        app:title="listar "
+        app:title="listar"
         app:titleTextColor="@color/black" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/RVUsuario"
+        android:id="@+id/RVPrestamo"
         android:layout_width="match_parent"
         android:layout_height="617dp">
 

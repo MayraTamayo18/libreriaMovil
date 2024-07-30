@@ -19,6 +19,8 @@ class config {
        /* val urlBase="http://10.192.80.150" este lo debo poner en mi computador personal */
         val urlLibro= urlBase+"libro/"
         val urlUsuario= urlBase+"usuario/"
+        val urlPrestamo= urlBase+"prestamo/"
+        val urlMulta= urlBase+"multa"
 
     }
 }

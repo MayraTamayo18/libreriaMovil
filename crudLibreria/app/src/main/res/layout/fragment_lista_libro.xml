@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/libros1"
     android:orientation="vertical"
     tools:context=".listaLibroFragment">
 
@@ -15,7 +14,7 @@
         android:layout_height="wrap_content"
         android:background="#6A4E"
         app:title="listar libro"
-        app:titleTextColor="@color/white" />
+        app:titleTextColor="@color/black" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/RVLibros"

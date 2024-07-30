@@ -14,12 +14,14 @@ import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.example.crudlibreria.config.config
-import com.example.crudlibreria.models.usuario
+import com.example.crudlibreria.models.prestamo
+import com.example.crudlibreria.models.tipoEstado
 import com.google.gson.Gson
 import org.json.JSONObject
 import java.lang.Exception
 
-import com.example.crudlibreria.models.tipoUsuario
+
+
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
@@ -27,21 +29,22 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [guardarUsuarioFragment.newInstance] factory method to
+ * Use the [guardarPrestamoFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
 
-class guardarUsuarioFragment: Fragment() {
+class guardarPrestamoFragment: Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
 
     // definimos las variables del formulario
     private var id:Int=0 // el entero no se puede quedar nulo
-    private lateinit var txtNombre: EditText
-    private lateinit var txtDireccion: EditText
-    private lateinit var txtCorreo: EditText
-    private lateinit var SpinnerTipoUsuario: Spinner
+    private lateinit var txtFecha_prestamo: EditText
+    private lateinit var txtFecha_devolucion: EditText
+    private lateinit var SpinnerEstdo: Spinner
+    private lateinit var txtUsuario_prestamo: EditText
+    private lateinit var txtLibro_prestamo: EditText
     private lateinit var btnGuardar: Button
 
 
@@ -49,12 +52,12 @@ class guardarUsuarioFragment: Fragment() {
     //try-catch intente hacer una peticion si sale un error captura y se muestra un mesaje evitando que se cierre la aplicacion
 
     //metodo encargado de traer la informacion del usuario
-    fun consultarUsuario(){
+    fun consultarPrestamo(){
         // solo se debe consultar si el id es diferente a vacio
         if(id!=0){
             var request= JsonObjectRequest(
                 Request.Method.GET, //metodo
-                config.urlUsuario + id, //ur
+                config.urlPrestamo + id, //ur
                 null,//datos de la peticion
                 {response->
                     //variable response contiene la respuesta de la api
@@ -62,13 +65,13 @@ class guardarUsuarioFragment: Fragment() {
                     //generamos un objeto de la libreria gson
                     val gson= Gson()
                     //se convierte
-                    val usuario: usuario =gson.fromJson(response.toString(), usuario::class.java)
+                    val prestamo: prestamo =gson.fromJson(response.toString(), prestamo::class.java)
                     // se modifica el atributo text de los campos con el valor del objeto
-                    txtNombre.setText(response.getString("nombre"))
-                    txtDireccion.setText(response.getString("direccion"))
-                    txtCorreo.setText(response.getString("correo"))
-                   // SpinnerTipoUsuario.setText(response.getInt("tipoUsuario"))
-
+                    txtFecha_prestamo.setText(response.getString("fecha_prestamo"))
+                    txtFecha_devolucion.setText(response.getString("fecha_devolucion"))
+                    // SpinnerTipoUsuario.setText(response.getInt("tipoUsuario"))
+                    txtUsuario_prestamo.setText(response.getString("usuario_prestado"))
+                    txtLibro_prestamo.setText(response.getString("libro_prestado"))
 
                 },//cuando la respuesta es correcta
                 {error-> Toast.makeText(context,"Error al consultar", Toast.LENGTH_LONG).show() }//cuando es incorrecta
@@ -80,33 +83,35 @@ class guardarUsuarioFragment: Fragment() {
         }
     }
 
-    fun guardarUsuario(){
+    fun guardarPrestamo(){
         // esta clase para que cree o actualizar
         try {
             if(id==0){
                 // se crea un objeto para el tipo de ususario
-                val tipoUsuario=tipoUsuario()
+                val tipoEstado= tipoEstado()
                 val  parametros= JSONObject()
-                parametros.put("nombre",txtNombre.text.toString())
-                parametros.put("direccion",txtDireccion.text.toString())
-                parametros.put("correo",txtCorreo.text.toString())
+                parametros.put("fecha_prestamo",txtFecha_prestamo.text.toString())
+                parametros.put("fecha_devolucion",txtFecha_devolucion.text.toString())
                 // para que almacene
-                parametros.put("tipoUsuario",tipoUsuario.obtenerIntTipoUsuario(SpinnerTipoUsuario.selectedItem.toString()))
+                parametros.put("Estado",tipoEstado.obtenerIntTipoEstado(SpinnerEstdo.selectedItem.toString()))
+                parametros.put("usuario_prestamo",txtUsuario_prestamo.text.toString())
+                parametros.put("libro_prestamo",txtLibro_prestamo.text.toString())
+
 
                 var request= JsonObjectRequest(
                     Request.Method.POST, //metodo
-                    config.urlUsuario, //ur
+                    config.urlPrestamo, //ur
                     parametros,//datos de la peticion
                     {response->
                         Toast.makeText( context,"se guardor correctamente", Toast.LENGTH_SHORT).show()
                         // debe realizar la redireccion
-                         val transaction=requireFragmentManager()
-                             .beginTransaction()
-                         var fragmento=listarUsuarioFragment()
-                           transaction.replace(
+                        val transaction=requireFragmentManager()
+                            .beginTransaction()
+                        var fragmento=listaPrestamoFragment()
+                        transaction.replace(
                             R.id.fragmentContainerView,
                             fragmento).commit()
-                         transaction.addToBackStack(null)
+                        transaction.addToBackStack(null)
 
                     },//cuando la respuesta es correcta
 
@@ -121,25 +126,27 @@ class guardarUsuarioFragment: Fragment() {
                 //editar
                 val  parametros= JSONObject()
                 // se crea un objeto para el tipo de ususario
-                val tipoUsuario=tipoUsuario()
-                parametros.put("nombre",txtNombre.text.toString())
-                parametros.put("direccion",txtDireccion.text.toString())
-                parametros.put("correo",txtCorreo.text.toString())
-                parametros.put("tipoUsuario",tipoUsuario.obtenerIntTipoUsuario(SpinnerTipoUsuario.selectedItem.toString()))
+                val tipoEstado= tipoEstado()//nombre del modelo
+                parametros.put("fecha_prestamo",txtFecha_prestamo.text.toString())
+                parametros.put("fecha_devolucion",txtFecha_devolucion.text.toString())
+                parametros.put("Estado",tipoEstado.obtenerIntTipoEstado(SpinnerEstdo.selectedItem.toString()))
+                parametros.put("Usuario_prestamo",txtUsuario_prestamo.text.toString())
+                parametros.put("libro_prestamo",txtLibro_prestamo.text.toString())
+
 
                 var request= JsonObjectRequest(
                     Request.Method.PUT, //metodo
-                    config.urlUsuario + id + "/", //ur
+                    config.urlPrestamo + id + "/", //ur
                     parametros,//datos de la peticion
                     {response->
                         Toast.makeText( context,"se Actualizo correctamente", Toast.LENGTH_SHORT).show()
                         // debe realizar la redireccion
-                         val transaction=requireFragmentManager()
-                             .beginTransaction()
-                         var fragmento=listarUsuarioFragment()
-                         transaction.replace(
-                             R.id.fragmentContainerView,
-                             fragmento).commit()
+                        val transaction=requireFragmentManager()
+                            .beginTransaction()
+                        var fragmento=listaPrestamoFragment()
+                        transaction.replace(
+                            R.id.fragmentContainerView,
+                            fragmento).commit()
                         transaction.addToBackStack(null)
                     },//cuando la respuesta es correcta
 
@@ -174,18 +181,20 @@ class guardarUsuarioFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        var view= inflater.inflate(R.layout.fragment_guardar_usuario, container, false)
-        txtNombre=view.findViewById(R.id.textNombre)
-        txtDireccion=view.findViewById(R.id.textDireccion)
-        txtCorreo=view.findViewById(R.id.textCorreo)
-        SpinnerTipoUsuario=view.findViewById(R.id.SpinnerTipoUsuario)
+        var view= inflater.inflate(R.layout.fragment_guardar_prestamo, container, false)
+        txtFecha_prestamo=view.findViewById(R.id.textFecha_prestamo)
+        txtFecha_devolucion=view.findViewById(R.id.textFecha_devolucion)
+        SpinnerEstdo=view.findViewById(R.id.SpinnerEstado)
+        txtUsuario_prestamo=view.findViewById(R.id.textUsuario_prestamo)
+        txtLibro_prestamo=view.findViewById(R.id.textLibro_prestamo)
+
 
         btnGuardar=view.findViewById(R.id.btnGuardar)
         btnGuardar.setOnClickListener{
-            guardarUsuario()
+            guardarPrestamo()
 
         }
-        consultarUsuario()
+        consultarPrestamo()
         cargarFormulario()
 
         return view
@@ -194,19 +203,19 @@ class guardarUsuarioFragment: Fragment() {
     }
     // vamos a crear un metodo para cargar el formula de todo
     fun cargarFormulario(){
-        caragarTipoUsuario()
+        caragarTipoEstado()
     }
     // generar las lista del spinner
-    fun caragarTipoUsuario(){
-        val tipoUsuario= tipoUsuario()
+    fun caragarTipoEstado(){
+        val tipoEstado= tipoEstado()
 
         // creamos un pequeño adapter para saber como se van a mostrar los datos
-        val adapterSpinner=ArrayAdapter(
+        val adapterSpinner= ArrayAdapter(
             requireContext(),
             android.R.layout.simple_spinner_item,
-            tipoUsuario.listaTipoUsuario
+            tipoEstado.listaTipoEstado
         )
-        SpinnerTipoUsuario.adapter=adapterSpinner
+        SpinnerEstdo.adapter=adapterSpinner
     }
 
     companion object {
