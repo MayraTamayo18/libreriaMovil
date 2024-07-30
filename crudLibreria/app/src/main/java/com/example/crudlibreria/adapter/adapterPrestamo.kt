@@ -52,8 +52,14 @@ class adapterPrestamo
         //obtener el registro
         val prestamo=listPrestamo.getJSONObject(position)
         //asignar valores
-        holder.lblUsuario_prestamo.text=prestamo.getString("usuario_prestamo")
-        holder.lblLibro_prestamo.text=prestamo.getString("libro_prestamo")
+        /*
+        Para obtener la información de un json dentro otro
+        1 hay obtener el json y luego la información requerida
+        2 dentro del json solicitar la información requerida
+         */
+        var usuario=prestamo.getJSONObject("usuario_prestamo")
+        holder.lblUsuario_prestamo.text=usuario.getString("nombre")
+        holder.lblLibro_prestamo.text=prestamo.getJSONObject("libro_prestamo").getString("titulo")
 
 
         //se crea la función del onclick nuevo que puse
