@@ -1,11 +1,13 @@
 package com.example.crudlibreria
 
+import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Button
+import android.widget.CalendarView
 import android.widget.EditText
 import android.widget.Spinner
 import android.widget.Toast
@@ -19,7 +21,9 @@ import com.example.crudlibreria.models.tipoEstado
 import com.google.gson.Gson
 import org.json.JSONObject
 import java.lang.Exception
-
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -33,7 +37,7 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 
-class guardarPrestamoFragment: Fragment() {
+class guardarPrestamoFragment: Fragment(){
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -46,6 +50,8 @@ class guardarPrestamoFragment: Fragment() {
     private lateinit var txtUsuario_prestamo: EditText
     private lateinit var txtLibro_prestamo: EditText
     private lateinit var btnGuardar: Button
+    private lateinit var btnCalendario: Button
+    private lateinit var btnCalendario2: Button
 
 
 
@@ -69,9 +75,9 @@ class guardarPrestamoFragment: Fragment() {
                     // se modifica el atributo text de los campos con el valor del objeto
                     txtFecha_prestamo.setText(response.getString("fecha_prestamo"))
                     txtFecha_devolucion.setText(response.getString("fecha_devolucion"))
-                    // SpinnerTipoUsuario.setText(response.getInt("tipoUsuario"))
-                    txtUsuario_prestamo.setText(response.getString("usuario_prestado"))
-                    txtLibro_prestamo.setText(response.getString("libro_prestado"))
+                    SpinnerEstdo.setSelection(response.getInt("Estado")-1)
+                    txtUsuario_prestamo.setText(response.getInt("usuario_prestamo").toString())
+                    txtLibro_prestamo.setText(response.getInt("libro_prestamo").toString())
 
                 },//cuando la respuesta es correcta
                 {error-> Toast.makeText(context,"Error al consultar", Toast.LENGTH_LONG).show() }//cuando es incorrecta
@@ -81,6 +87,33 @@ class guardarPrestamoFragment: Fragment() {
             // se añade la peticion
             queue.add(request)
         }
+    }
+    // funcion para mostrar el calendario
+    fun mostrarCalendario(text: EditText){
+        //Toast.makeText(requireContext(),"",Toast.LENGTH_LONG).show()
+        // Obtener la fecha actual
+        val calendar = Calendar.getInstance()
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH)
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+        // Crear el DatePickerDialog calendario
+        val datePickerDialog = DatePickerDialog(requireContext(), { _, selectedYear, selectedMonth, selectedDay ->
+            // Formatear la fecha seleccionada
+            val selectedDate = Calendar.getInstance().apply {
+                set(selectedYear, selectedMonth, selectedDay)
+            }
+            val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+            val formattedDate = dateFormat.format(selectedDate.time)
+            text.setText(formattedDate)
+            // Mostrar la fecha seleccionada en el TextView
+            //txtFecha_prestamo.setText(formattedDate)
+            //retornar la fecha formateada setonclikListener resivir esa fecha para mostrarla en el cuadro de texto de la vista
+
+        }, year, month, day)
+
+        // Mostrar el DatePickerDialog
+        datePickerDialog.show()
     }
 
     fun guardarPrestamo(){
@@ -130,7 +163,7 @@ class guardarPrestamoFragment: Fragment() {
                 parametros.put("fecha_prestamo",txtFecha_prestamo.text.toString())
                 parametros.put("fecha_devolucion",txtFecha_devolucion.text.toString())
                 parametros.put("Estado",tipoEstado.obtenerIntTipoEstado(SpinnerEstdo.selectedItem.toString()))
-                parametros.put("Usuario_prestamo",txtUsuario_prestamo.text.toString())
+                parametros.put("usuario_prestamo",txtUsuario_prestamo.text.toString())
                 parametros.put("libro_prestamo",txtLibro_prestamo.text.toString())
 
 
@@ -189,11 +222,23 @@ class guardarPrestamoFragment: Fragment() {
         txtLibro_prestamo=view.findViewById(R.id.textLibro_prestamo)
 
 
+
         btnGuardar=view.findViewById(R.id.btnGuardar)
         btnGuardar.setOnClickListener{
             guardarPrestamo()
 
         }
+        btnCalendario=view.findViewById(R.id.btnCalendario)
+        btnCalendario.setOnClickListener{
+            mostrarCalendario(txtFecha_prestamo)
+
+        }
+
+        btnCalendario2=view.findViewById(R.id.btnCalendario2)
+        btnCalendario2.setOnClickListener{
+            mostrarCalendario(txtFecha_devolucion)
+        }
+
         consultarPrestamo()
         cargarFormulario()
 

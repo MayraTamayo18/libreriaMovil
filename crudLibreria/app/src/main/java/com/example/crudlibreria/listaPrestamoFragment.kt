@@ -96,7 +96,7 @@ class listaPrestamoFragment: Fragment() {
                                 // redirije a la vista de listar usuario recargada pero aun me aparece un error
                                 val transaction=requireFragmentManager()
                                     .beginTransaction()
-                                var fragmento=guardarPrestamoFragment()
+                                var fragmento=listaPrestamoFragment()
                                 transaction.replace(
                                     R.id.fragmentContainerView,
                                     fragmento).commit()

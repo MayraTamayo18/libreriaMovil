@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:onClick="mostrarCalendario"
     tools:context=".guardarPrestamoFragment">
 
     <com.google.android.material.appbar.MaterialToolbar
@@ -31,13 +32,37 @@
             android:text="Fecha prestamo"
             android:textColor="#0D0D0D"
             android:textSize="20sp" />
+        <!--<EditText
+           android:id="@+id/textFecha_prestamo"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:ems="10"
+           android:inputType="text" />-->
 
-        <EditText
-            android:id="@+id/textFecha_prestamo"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="date" />
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/textFecha_prestamo"
+                android:layout_width="297dp"
+                android:layout_height="wrap_content"
+                android:editable="false"
+                android:ems="10"
+                android:enabled="false"
+                android:inputType="date"
+                android:onClick="mostrarCalendario" />
+
+            <Button
+                android:id="@+id/btnCalendario"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:onClick="mostrarCalendario"
+                app:icon="@drawable/baseline_calendar_month_24"
+                app:iconGravity="textStart" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/lblFecha_devolucion"
@@ -47,12 +72,35 @@
             android:textColor="#0B0B0B"
             android:textSize="20sp" />
 
-        <EditText
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/textFecha_devolucion"
+                android:layout_width="299dp"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:enabled="false"
+                android:inputType="date" />
+
+            <Button
+                android:id="@+id/btnCalendario2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:onClick="mostrarCalendario"
+                app:icon="@drawable/baseline_calendar_month_24"
+                app:iconGravity="textStart" />
+        </LinearLayout>
+
+        <!--<EditText
             android:id="@+id/textFecha_devolucion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="date" />
+            android:inputType="text" />-->
 
         <TextView
             android:id="@+id/lblEstado"
@@ -135,6 +183,7 @@
                 app:iconGravity="textStart"
                 app:iconSize="25dp" />
         </LinearLayout>
+
     </LinearLayout>
 
 </FrameLayout>

@@ -6,8 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.android.volley.Request
+import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.Volley
 import com.example.crudlibreria.R
+import com.example.crudlibreria.config.config
+import com.example.crudlibreria.models.tipoUsuario
+import com.example.crudlibreria.models.usuario
+import com.google.gson.Gson
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -57,9 +65,16 @@ class adapterPrestamo
         1 hay obtener el json y luego la información requerida
         2 dentro del json solicitar la información requerida
          */
-        var usuario=prestamo.getJSONObject("usuario_prestamo")
-        holder.lblUsuario_prestamo.text=usuario.getString("nombre")
-        holder.lblLibro_prestamo.text=prestamo.getJSONObject("libro_prestamo").getString("titulo")
+
+
+
+        holder.lblUsuario_prestamo.text= prestamo.getInt("usuario_prestamo").toString()
+        //var libro=prestamo.getJSONObject("libro_prestamo")
+        holder.lblLibro_prestamo.text= prestamo.getInt("libro_prestamo").toString()
+        //holder.lblLibro_prestamo.text=libro.getString("titulo")
+
+
+        //holder.lblLibro_prestamo.text=prestamo.getJSONObject("libro_prestamo").getString("titulo")
 
 
         //se crea la función del onclick nuevo que puse
@@ -71,6 +86,8 @@ class adapterPrestamo
             onclickEliminar?.invoke(listPrestamo.getJSONObject(position))
         }
     }
+
+
 
     /*
     getItemCount: retorna el número de elementos

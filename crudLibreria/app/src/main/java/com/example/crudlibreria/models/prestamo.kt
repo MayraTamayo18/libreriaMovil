@@ -4,10 +4,10 @@ import java.util.Date
 
 data class prestamo (
     var id:String,
-    var fecha_prestamo:String,
-    var fecha_devolucion: String,
+    var fecha_prestamo:Date,
+    var fecha_devolucion: Date,
     var Estado: Int,
-    var usuario_prestamo: usuario,
-    var libro_prestamo: libro
+    var usuario_prestamo: Int,
+    var libro_prestamo: Int
 
 )

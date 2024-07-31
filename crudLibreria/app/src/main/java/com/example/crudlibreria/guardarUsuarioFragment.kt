@@ -1,5 +1,6 @@
 package com.example.crudlibreria
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -67,6 +68,7 @@ class guardarUsuarioFragment: Fragment() {
                     txtNombre.setText(response.getString("nombre"))
                     txtDireccion.setText(response.getString("direccion"))
                     txtCorreo.setText(response.getString("correo"))
+                    SpinnerTipoUsuario.setSelection(response.getInt("tipoUsuario")-1)
                    // SpinnerTipoUsuario.setText(response.getInt("tipoUsuario"))
 
 
@@ -79,6 +81,9 @@ class guardarUsuarioFragment: Fragment() {
             queue.add(request)
         }
     }
+
+
+
 
     fun guardarUsuario(){
         // esta clase para que cree o actualizar
