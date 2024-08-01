@@ -108,7 +108,7 @@
                 app:iconSize="25dp" />
 
             <Button
-                android:id="@+id/button2"
+                android:id="@+id/btnVolver"
                 android:layout_width="133dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"

@@ -103,7 +103,7 @@ class guardarUsuarioFragment: Fragment() {
                     config.urlUsuario, //ur
                     parametros,//datos de la peticion
                     {response->
-                        Toast.makeText( context,"se guardor correctamente", Toast.LENGTH_SHORT).show()
+                         Toast.makeText( context,"se guardor correctamente", Toast.LENGTH_SHORT).show()
                         // debe realizar la redireccion
                          val transaction=requireFragmentManager()
                              .beginTransaction()
@@ -189,6 +189,22 @@ class guardarUsuarioFragment: Fragment() {
         btnGuardar.setOnClickListener{
             guardarUsuario()
 
+        }
+
+        //boton volver
+        var btnVolver: Button = view.findViewById(R.id.btnVolver)
+        btnVolver.setOnClickListener{
+            val fragmentManager = requireActivity().supportFragmentManager
+            //crea la instancia del fragmentoPrincipal
+            var fragmentPrincipal = listarUsuarioFragment()
+            //trasaccion de fracmentos
+            var transsaction = fragmentManager.beginTransaction()
+            //reemplaza fragmento
+            transsaction.replace(R.id.fragmentContainerView, fragmentPrincipal)
+
+            transsaction.addToBackStack(null)
+            //confirma los cambios
+            transsaction.commit()
         }
         consultarUsuario()
         cargarFormulario()

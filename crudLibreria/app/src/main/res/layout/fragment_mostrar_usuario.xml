@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/mostrarUsuarioFragment"
+    tools:context=".mostrarUsuarioFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/RVMostrarUsuario"
+        android:layout_width="match_parent"
+        android:layout_height="617dp">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+   <!-- <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnAgregar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:clickable="true"
+        android:src="@drawable/baseline_add_24" />-->
+
+</LinearLayout>

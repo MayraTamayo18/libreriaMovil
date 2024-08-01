@@ -4,16 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/libros1"
     tools:context=".guardarLibroFragment">
 
     <com.google.android.material.appbar.MaterialToolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#6A4E"
-        app:titleTextColor="@color/white"
-        app:title="Libros"/>
-     <!-- TODO: Update blank fragment layout -->
+        app:title="Libros"
+        app:titleTextColor="@color/black" />
+    <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
@@ -30,7 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Titulo"
-            android:textColor="#FDFBFB"
+            android:textColor="#000000"
             android:textSize="20sp" />
 
         <EditText
@@ -45,7 +44,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/lblAutor"
-            android:textColor="#FBFBFB"
+            android:textColor="#090909"
             android:textSize="20sp" />
 
         <EditText
@@ -60,7 +59,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Isbn"
-            android:textColor="#FFFFFF"
+            android:textColor="#090909"
             android:textSize="20sp" />
 
         <EditText
@@ -75,7 +74,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Genero"
-            android:textColor="#FAF6F6"
+            android:textColor="#020202"
             android:textSize="20sp" />
 
         <EditText
@@ -90,7 +89,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Ejemplares Disponibles"
-            android:textColor="#FDFCFC"
+            android:textColor="#040404"
             android:textSize="20sp" />
 
         <EditText
@@ -105,7 +104,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Ejemplares Ocupados"
-            android:textColor="#FAF9F9"
+            android:textColor="#050505"
             android:textSize="20sp" />
 
         <EditText
@@ -134,7 +133,7 @@
                 app:iconSize="25dp" />
 
             <Button
-                android:id="@+id/button2"
+                android:id="@+id/btnVolver"
                 android:layout_width="133dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"

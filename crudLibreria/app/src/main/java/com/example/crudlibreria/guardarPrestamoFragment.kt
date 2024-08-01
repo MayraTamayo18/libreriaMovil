@@ -1,5 +1,6 @@
 package com.example.crudlibreria
 
+import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,6 +13,7 @@ import android.widget.EditText
 import android.widget.Spinner
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
@@ -52,6 +54,9 @@ class guardarPrestamoFragment: Fragment(){
     private lateinit var btnGuardar: Button
     private lateinit var btnCalendario: Button
     private lateinit var btnCalendario2: Button
+    private lateinit var btnBuscarUsuario: Button
+    private lateinit var btnBuscarLibro: Button
+
 
 
 
@@ -78,6 +83,7 @@ class guardarPrestamoFragment: Fragment(){
                     SpinnerEstdo.setSelection(response.getInt("Estado")-1)
                     txtUsuario_prestamo.setText(response.getInt("usuario_prestamo").toString())
                     txtLibro_prestamo.setText(response.getInt("libro_prestamo").toString())
+
 
                 },//cuando la respuesta es correcta
                 {error-> Toast.makeText(context,"Error al consultar", Toast.LENGTH_LONG).show() }//cuando es incorrecta
@@ -115,6 +121,29 @@ class guardarPrestamoFragment: Fragment(){
         // Mostrar el DatePickerDialog
         datePickerDialog.show()
     }
+//pendiente
+    /*fun mostrarUsuario(fragmentManager: FragmentManager) {
+        val usuarioListFragment = listarUsuarioFragment()
+
+        val builder = AlertDialog.Builder(fragmentManager.findFragmentById(R.id.fragmentContainerView)!!.requireContext())
+        builder.setTitle("lista de usuarios")
+            .setView(R.layout.fragment_mostrar_usuario) // Set custom layout to Dialog
+            .setPositiveButton("OK") { dialog, _ ->
+                dialog.dismiss()
+            }
+
+        val dialog = builder.create()
+
+        // Show the dialog
+        dialog.show()
+
+        val fragmentContainer = dialog.findViewById<ViewGroup>(android.R.id.content)
+        if (fragmentContainer != null) {
+            fragmentManager.beginTransaction()
+                .replace(fragmentContainer.id, usuarioListFragment)
+                .commit()
+        }
+    }*/
 
     fun guardarPrestamo(){
         // esta clase para que cree o actualizar
@@ -129,6 +158,7 @@ class guardarPrestamoFragment: Fragment(){
                 parametros.put("Estado",tipoEstado.obtenerIntTipoEstado(SpinnerEstdo.selectedItem.toString()))
                 parametros.put("usuario_prestamo",txtUsuario_prestamo.text.toString())
                 parametros.put("libro_prestamo",txtLibro_prestamo.text.toString())
+
 
 
                 var request= JsonObjectRequest(
@@ -165,6 +195,7 @@ class guardarPrestamoFragment: Fragment(){
                 parametros.put("Estado",tipoEstado.obtenerIntTipoEstado(SpinnerEstdo.selectedItem.toString()))
                 parametros.put("usuario_prestamo",txtUsuario_prestamo.text.toString())
                 parametros.put("libro_prestamo",txtLibro_prestamo.text.toString())
+
 
 
                 var request= JsonObjectRequest(
@@ -223,6 +254,7 @@ class guardarPrestamoFragment: Fragment(){
 
 
 
+
         btnGuardar=view.findViewById(R.id.btnGuardar)
         btnGuardar.setOnClickListener{
             guardarPrestamo()
@@ -239,6 +271,27 @@ class guardarPrestamoFragment: Fragment(){
             mostrarCalendario(txtFecha_devolucion)
         }
 
+        //quedo pendiente
+        /*btnBuscarUsuario=view.findViewById(R.id.btnBuscarUsuario)
+        btnBuscarUsuario.setOnClickListener{
+            mostrarUsuario(parentFragmentManager)
+        }*/
+
+        //boton volver
+        var btnVolver: Button = view.findViewById(R.id.btnVolver)
+        btnVolver.setOnClickListener{
+            val fragmentManager = requireActivity().supportFragmentManager
+            //crea la instancia del fragmentoPrincipal
+            var fragmentPrincipal = listaPrestamoFragment()
+            //trasaccion de fracmentos
+            var transsaction = fragmentManager.beginTransaction()
+            //reemplaza fragmento
+            transsaction.replace(R.id.fragmentContainerView, fragmentPrincipal)
+
+            transsaction.addToBackStack(null)
+            //confirma los cambios
+            transsaction.commit()
+        }
         consultarPrestamo()
         cargarFormulario()
 

@@ -1,39 +1,128 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--android:id="@+id/main"  este ra como se llamaba-->
-<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-
-    android:id="@+id/drawerLayout"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:openDrawer="start"
-    android:fitsSystemWindows="true"
-
+    android:backgroundTint="#BD750B"
     tools:context=".MainActivity">
-
-    <include
-        layout="@layout/activity_main_content"/>
-
-    <!--android:name="com.example.crudlibreria.listaLibroFragment" este va en el espacio de androidx.fragment.app.FragmentContainerView-->
-    <com.google.android.material.navigation.NavigationView
-        android:id="@+id/navigationView"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        app:dividerInsetStart="25dp"
-        app:headerLayout="@layout/drawer_header"
-        app:itemIconPadding="35dp"
-        app:menu="@menu/drawer_items" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView"
-        android:name="com.example.crudlibreria.listaPrestamoFragment"
-        android:layout_width="407dp"
-        android:layout_height="720dp"
+        android:name="com.example.crudlibreria.pagina_Principal"
+        android:layout_width="409dp"
+        android:layout_height="602dp"
+        android:backgroundTint="#C8B3EF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.586" />
 
-</androidx.drawerlayout.widget.DrawerLayout>
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="417dp"
+        android:layout_height="71dp"
+        android:background="#9665E4"
+        android:backgroundTint="#9665E4"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/btnHome"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:backgroundTint="#9665E4"
+            android:textColorLink="#008496"
+            app:icon="@drawable/home_svgrepo_com"
+            app:iconGravity="start"
+            app:iconPadding="8dp"
+            app:iconSize="40dp"
+            app:iconTint="#000000" />
+
+        <Button
+            android:id="@+id/btnLibro"
+            android:layout_width="wrap_content"
+            android:layout_height="69dp"
+            android:layout_weight="1"
+            android:backgroundTint="#9665E4"
+            android:gravity="center"
+            app:icon="@drawable/book_svgrepo_com"
+            app:iconGravity="start"
+            app:iconSize="40dp"
+            app:iconTint="#070707" />
+
+        <Button
+            android:id="@+id/btnUsuario"
+            android:layout_width="wrap_content"
+            android:layout_height="69dp"
+            android:layout_weight="1"
+            android:backgroundTint="#9665E4"
+            app:icon="@drawable/user_solid"
+            app:iconSize="40dp"
+            app:iconTint="#000000" />
+
+        <Button
+            android:id="@+id/btnPrestamo"
+            android:layout_width="wrap_content"
+            android:layout_height="69dp"
+            android:layout_weight="1"
+            android:backgroundTint="#9665E4"
+            app:icon="@drawable/baseline_assignment_24"
+            app:iconSize="40dp"
+            app:iconTint="#000000" />
+
+        <Button
+            android:id="@+id/btnMulta"
+            android:layout_width="wrap_content"
+            android:layout_height="69dp"
+            android:layout_weight="1"
+            android:backgroundTint="#9665E4"
+            app:icon="@drawable/peso_svgrepo_com"
+            app:iconSize="40dp"
+            app:iconTint="#000000" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="394dp"
+        android:layout_height="71dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="@+id/fragmentContainerView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.47"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.047">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="257dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="12dp"
+            android:layout_weight="1"
+            android:backgroundTint="#000000"
+            android:fontFamily="monospace"
+            android:gravity="bottom|center"
+            android:text="LibroLab"
+            android:textAlignment="center"
+            android:textColor="#5B09ED"
+            android:textSize="38sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="131dp"
+            android:layout_height="66dp"
+            android:layout_gravity="center"
+            android:layout_weight="2"
+            app:srcCompat="@drawable/book_svgrepo_com__1_" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

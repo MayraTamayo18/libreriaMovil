@@ -245,6 +245,22 @@ class guardarLibroFragment : Fragment() {
             guardarLibro()
 
         }
+
+        //boton volver
+        var btnVolver: Button = view.findViewById(R.id.btnVolver)
+        btnVolver.setOnClickListener{
+            val fragmentManager = requireActivity().supportFragmentManager
+            //crea la instancia del fragmentoPrincipal
+            var fragmentPrincipal = listaLibroFragment()
+            //trasaccion de fracmentos
+            var transsaction = fragmentManager.beginTransaction()
+            //reemplaza fragmento
+            transsaction.replace(R.id.fragmentContainerView, fragmentPrincipal)
+
+            transsaction.addToBackStack(null)
+            //confirma los cambios
+            transsaction.commit()
+        }
         consultarLibro()
         return view
     }

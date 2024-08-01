@@ -35,6 +35,13 @@ android {
     }
 }
 
+//buildFeatures{
+//    viewBinding = true
+//}
+//viewBinding {
+//    enabled = true
+//}
+
 dependencies {
 
     //procedemos a agregar tres  dependencias para

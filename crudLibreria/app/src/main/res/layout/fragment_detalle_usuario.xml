@@ -4,15 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/libros1"
     tools:context=".detalleUsuarioFragment">
 
     <com.google.android.material.appbar.MaterialToolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#6A4E"
-        app:titleTextColor="@color/white"
-        app:title="Usuario"/>
+        app:title="Usuario"
+        app:titleTextColor="@color/black" />
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -29,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Nombre"
-            android:textColor="#FFFFFF"
+            android:textColor="#000000"
             android:textSize="20sp" />
 
         <EditText
@@ -44,7 +43,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Direccion"
-            android:textColor="#FAF7F7"
+            android:textColor="#000000"
             android:textSize="20sp" />
 
         <EditText
@@ -59,7 +58,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Correo"
-            android:textColor="#FFFFFF"
+            android:textColor="#040404"
             android:textSize="20sp" />
 
         <EditText
@@ -74,7 +73,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="tipo de usuario"
-            android:textColor="#FFFDFD"
+            android:textColor="#040404"
             android:textSize="20sp" />
 
         <Spinner
