@@ -12,7 +12,7 @@ class config {
         esta es solo  para el computador que tenga y este compartiendo el internet*/
        /*val urlBase="http://192.168.137.1:8000/api/v1/"*/
 
-        /*url del mia*/val urlBase="http://192.168.137.148:8000/libreria/api/v1/"
+        /*url del mia*/val urlBase="http://10.192.80.111:8000/libreria/api/v1/"
         /*url del profesorval urlBase="http://10.192.80.151:8080/api/v1/"*/
         /*
       en el caso de que a el compurador donde estoy trabajando(andoidEstudio)me estan compartiendo la red wifi */
@@ -20,7 +20,7 @@ class config {
         val urlLibro= urlBase+"libro/"
         val urlUsuario= urlBase+"usuario/"
         val urlPrestamo= urlBase+"prestamo/"
-        val urlMulta= urlBase+"multa"
+        val urlMulta= urlBase+"multa/"
 
     }
 }

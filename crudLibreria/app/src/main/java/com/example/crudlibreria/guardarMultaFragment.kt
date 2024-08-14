@@ -9,21 +9,23 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Spinner
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.example.crudlibreria.config.config
+import com.example.crudlibreria.models.estado_Multa
 import com.example.crudlibreria.models.prestamo
 import com.example.crudlibreria.models.tipoEstado
+import com.example.crudlibreria.models.usuario
 import com.google.gson.Gson
 import org.json.JSONObject
 import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
-
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -32,67 +34,69 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [guardarPrestamoFragment.newInstance] factory method to
+ * Use the [detalleMultaFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
 
-class guardarPrestamoFragment: Fragment(){
+class guardarMultaFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
 
-    // definimos las variables del formulario
-    private var id:Int=0 // el entero no se puede quedar nulo
-    private lateinit var txtFecha_prestamo: EditText
-    private lateinit var txtFecha_devolucion: EditText
-    private lateinit var SpinnerEstdo: Spinner
-    private lateinit var txtUsuario_prestamo: EditText
-    private lateinit var txtLibro_prestamo: EditText
+
+    // definir las variables
+    private var id: Int = 0 // el entero no se puede quedar nulo
+    private lateinit var txtFecha_multa: EditText
+    private lateinit var txtUsuario_multado: EditText
+    private lateinit var txtPrestamo: EditText
+    private lateinit var txtValor_multa: EditText
+    private lateinit var SpinnerEstdo_multa: Spinner
     private lateinit var btnGuardar: Button
     private lateinit var btnCalendario: Button
-    private lateinit var btnCalendario2: Button
     private lateinit var btnBuscarUsuario: Button
-    private lateinit var btnBuscarLibro: Button
-
-
+    private lateinit var btnBuscarPrestamo: Button
 
 
     //try-catch intente hacer una peticion si sale un error captura y se muestra un mesaje evitando que se cierre la aplicacion
 
     //metodo encargado de traer la informacion del usuario
-    fun consultarPrestamo(){
+    fun consultarMulta() {
         // solo se debe consultar si el id es diferente a vacio
-        if(id!=0){
-            var request= JsonObjectRequest(
+        if (id != 0) {
+            var request = JsonObjectRequest(
                 Request.Method.GET, //metodo
-                config.urlPrestamo + id, //ur
+                config.urlMulta + id, //ur
                 null,//datos de la peticion
-                {response->
+                { response ->
                     //variable response contiene la respuesta de la api
                     //se convierte en json a un objeto tipo usuario
                     //generamos un objeto de la libreria gson
-                    val gson= Gson()
+                    val gson = Gson()
                     //se convierte
-                    val prestamo: prestamo =gson.fromJson(response.toString(), prestamo::class.java)
+                    val prestamo: prestamo =
+                        gson.fromJson(response.toString(), prestamo::class.java)
                     // se modifica el atributo text de los campos con el valor del objeto
-                    txtFecha_prestamo.setText(response.getString("fecha_prestamo"))
-                    txtFecha_devolucion.setText(response.getString("fecha_devolucion"))
-                    SpinnerEstdo.setSelection(response.getInt("Estado")-1)
-                    txtUsuario_prestamo.setText(response.getInt("usuario_prestamo").toString())
-                    txtLibro_prestamo.setText(response.getInt("libro_prestamo").toString())
+                    txtFecha_multa.setText(response.getString("fecha_multa"))
+                    txtUsuario_multado.setText(response.getInt("usuario_multado").toString())
+                    txtPrestamo.setText(response.getInt("prestamo").toString())
+                    txtValor_multa.setText(response.getInt("valor_multa"))
+                    SpinnerEstdo_multa.setSelection(response.getInt("estado_multa") - 1)
 
 
                 },//cuando la respuesta es correcta
-                {error-> Toast.makeText(context,"Error al consultar", Toast.LENGTH_LONG).show() }//cuando es incorrecta
+                { error ->
+                    Toast.makeText(context, "Error al consultar", Toast.LENGTH_LONG).show()
+                }//cuando es incorrecta
             )
             // se crea la cola del trabajo
-            val queue= Volley.newRequestQueue(context)
+            val queue = Volley.newRequestQueue(context)
             // se añade la peticion
             queue.add(request)
         }
     }
+
     // funcion para mostrar el calendario
-    fun mostrarCalendario(text: EditText){
+    fun mostrarCalendario(text: EditText) {
         //Toast.makeText(requireContext(),"",Toast.LENGTH_LONG).show()
         // Obtener la fecha actual
         val calendar = Calendar.getInstance()
@@ -101,19 +105,20 @@ class guardarPrestamoFragment: Fragment(){
         val day = calendar.get(Calendar.DAY_OF_MONTH)
 
         // Crear el DatePickerDialog calendario
-        val datePickerDialog = DatePickerDialog(requireContext(), { _, selectedYear, selectedMonth, selectedDay ->
-            // Formatear la fecha seleccionada
-            val selectedDate = Calendar.getInstance().apply {
-                set(selectedYear, selectedMonth, selectedDay)
-            }
-            val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-            val formattedDate = dateFormat.format(selectedDate.time)
-            text.setText(formattedDate)
-            // Mostrar la fecha seleccionada en el TextView
-            //txtFecha_prestamo.setText(formattedDate)
-            //retornar la fecha formateada setonclikListener resivir esa fecha para mostrarla en el cuadro de texto de la vista
+        val datePickerDialog =
+            DatePickerDialog(requireContext(), { _, selectedYear, selectedMonth, selectedDay ->
+                // Formatear la fecha seleccionada
+                val selectedDate = Calendar.getInstance().apply {
+                    set(selectedYear, selectedMonth, selectedDay)
+                }
+                val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+                val formattedDate = dateFormat.format(selectedDate.time)
+                text.setText(formattedDate)
+                // Mostrar la fecha seleccionada en el TextView
+                //txtFecha_prestamo.setText(formattedDate)
+                //retornar la fecha formateada setonclikListener resivir esa fecha para mostrarla en el cuadro de texto de la vista
 
-        }, year, month, day)
+            }, year, month, day)
 
         // Mostrar el DatePickerDialog
         datePickerDialog.show()
@@ -142,86 +147,97 @@ class guardarPrestamoFragment: Fragment(){
         }
     }*/
 
-    fun guardarPrestamo(){
+    fun guardarMulta() {
         // esta clase para que cree o actualizar
         try {
-            if(id==0){
+            if (id == 0) {
                 // se crea un objeto para el tipo de ususario
-                val tipoEstado= tipoEstado()
-                val  parametros= JSONObject()
-                parametros.put("fecha_prestamo",txtFecha_prestamo.text.toString())
-                parametros.put("fecha_devolucion",txtFecha_devolucion.text.toString())
+                val estado_multa = estado_Multa()
+                val parametros = JSONObject()
+                parametros.put("fecha_multa", txtFecha_multa.text.toString())
                 // para que almacene
-                parametros.put("Estado",tipoEstado.obtenerIntTipoEstado(SpinnerEstdo.selectedItem.toString()))
-                parametros.put("usuario_prestamo",txtUsuario_prestamo.text.toString())
-                parametros.put("libro_prestamo",txtLibro_prestamo.text.toString())
+                parametros.put("usuario_multado", txtUsuario_multado.text.toString())
+                parametros.put("prestamo", txtPrestamo.text.toString())
+                parametros.put("valor_multa", txtValor_multa.text.toString())
+                parametros.put(
+                    "estado_multa",
+                    estado_multa.obtenerIntEstadoMulta(SpinnerEstdo_multa.selectedItem.toString())
+                )
 
 
-
-                var request= JsonObjectRequest(
+                var request = JsonObjectRequest(
                     Request.Method.POST, //metodo
-                    config.urlPrestamo, //ur
+                    config.urlMulta, //ur
                     parametros,//datos de la peticion
-                    {response->
-                        Toast.makeText( context,"se guardor correctamente", Toast.LENGTH_SHORT).show()
+                    { response ->
+                        Toast.makeText(context, "se guardor correctamente", Toast.LENGTH_SHORT)
+                            .show()
                         // debe realizar la redireccion
-                        val transaction=requireFragmentManager()
+                        val transaction = requireFragmentManager()
                             .beginTransaction()
-                        var fragmento=listaPrestamoFragment()
+                        var fragmento = listaMultaFragment()
                         transaction.replace(
                             R.id.fragmentContainerView,
-                            fragmento).commit()
+                            fragmento
+                        ).commit()
                         transaction.addToBackStack(null)
 
                     },//cuando la respuesta es correcta
 
-                    {error-> Toast.makeText(context, "se genero un error", Toast.LENGTH_LONG).show() }//cuando es incorrecta
+                    { error ->
+                        Toast.makeText(context, "se genero un error", Toast.LENGTH_LONG).show()
+                    }//cuando es incorrecta
                 )
                 // se crea la cola del trabajo
-                val queue= Volley.newRequestQueue(context)
+                val queue = Volley.newRequestQueue(context)
                 // se añade la peticion
                 queue.add(request)
 
-            }else{ // se actualiza el usuario
+            } else { // se actualiza el usuario
                 //editar
-                val  parametros= JSONObject()
+                val parametros = JSONObject()
                 // se crea un objeto para el tipo de ususario
-                val tipoEstado= tipoEstado()//nombre del modelo
-                parametros.put("fecha_prestamo",txtFecha_prestamo.text.toString())
-                parametros.put("fecha_devolucion",txtFecha_devolucion.text.toString())
-                parametros.put("Estado",tipoEstado.obtenerIntTipoEstado(SpinnerEstdo.selectedItem.toString()))
-                parametros.put("usuario_prestamo",txtUsuario_prestamo.text.toString())
-                parametros.put("libro_prestamo",txtLibro_prestamo.text.toString())
+                val estado_Multa = estado_Multa()//nombre del modelo
+                parametros.put("fecha_multa", txtFecha_multa.text.toString())
+                parametros.put("usuario_multado", txtUsuario_multado.text.toString())
+                parametros.put("prestamo", txtPrestamo.text.toString())
+                parametros.put("valor_multa", txtValor_multa.text.toString())
+                parametros.put(
+                    "estado_multa",
+                    estado_Multa.obtenerIntEstadoMulta(SpinnerEstdo_multa.selectedItem.toString())
+                )
 
 
-
-                var request= JsonObjectRequest(
+                var request = JsonObjectRequest(
                     Request.Method.PUT, //metodo
-                    config.urlPrestamo + id + "/", //ur
+                    config.urlMulta + id + "/", //ur
                     parametros,//datos de la peticion
-                    {response->
-                        Toast.makeText( context,"se Actualizo correctamente", Toast.LENGTH_SHORT).show()
+                    { response ->
+                        Toast.makeText(context, "se Actualizo correctamente", Toast.LENGTH_SHORT)
+                            .show()
                         // debe realizar la redireccion
-                        val transaction=requireFragmentManager()
+                        val transaction = requireFragmentManager()
                             .beginTransaction()
-                        var fragmento=listaPrestamoFragment()
+                        var fragmento = listaMultaFragment()
                         transaction.replace(
                             R.id.fragmentContainerView,
-                            fragmento).commit()
+                            fragmento
+                        ).commit()
                         transaction.addToBackStack(null)
                     },//cuando la respuesta es correcta
 
-                    {error-> Toast.makeText(context, "se genero un error", Toast.LENGTH_LONG).show() }//cuando es incorrecta
+                    { error ->
+                        Toast.makeText(context, "se genero un error", Toast.LENGTH_LONG).show()
+                    }//cuando es incorrecta
                 )
                 //acción cuando se hace click sobre el item nuevo que puse
 
                 // se crea la cola del trabajo
-                val queue= Volley.newRequestQueue(context)
+                val queue = Volley.newRequestQueue(context)
                 // se añade la peticion
                 queue.add(request)
             }
-        }
-        catch (erro: Exception){ // esta variable captura el error
+        } catch (erro: Exception) { // esta variable captura el error
 
         }
         //mensaje de que el registro se guardo
@@ -233,7 +249,7 @@ class guardarPrestamoFragment: Fragment(){
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
-            id=it.getInt("id")
+            id = it.getInt("id")
         }
     }
 
@@ -242,31 +258,28 @@ class guardarPrestamoFragment: Fragment(){
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        var view= inflater.inflate(R.layout.fragment_guardar_prestamo, container, false)
-        txtFecha_prestamo=view.findViewById(R.id.textFecha_prestamo)
-        txtFecha_devolucion=view.findViewById(R.id.textFecha_devolucion)
-        SpinnerEstdo=view.findViewById(R.id.SpinnerEstado)
-        txtUsuario_prestamo=view.findViewById(R.id.textUsuario_prestamo)
-        txtLibro_prestamo=view.findViewById(R.id.textLibro_prestamo)
+        var view = inflater.inflate(R.layout.fragment_guardar_multa, container, false)
+        txtFecha_multa = view.findViewById(R.id.textFecha_multa)
+        txtUsuario_multado = view.findViewById(R.id.textUsuario_multado)
+        txtPrestamo = view.findViewById(R.id.textPrestamo)
+        txtValor_multa = view.findViewById(R.id.textValor_multa)
+        SpinnerEstdo_multa = view.findViewById(R.id.SpinnerEstado_multa)
 
 
 
 
-        btnGuardar=view.findViewById(R.id.btnGuardar)
-        btnGuardar.setOnClickListener{
-            guardarPrestamo()
 
-        }
-        btnCalendario=view.findViewById(R.id.btnCalendario)
-        btnCalendario.setOnClickListener{
-            mostrarCalendario(txtFecha_prestamo)
+        btnGuardar = view.findViewById(R.id.btnGuardar)
+        btnGuardar.setOnClickListener {
+            guardarMulta()
 
         }
+        btnCalendario = view.findViewById(R.id.btnCalendario)
+        btnCalendario.setOnClickListener {
+            mostrarCalendario(txtFecha_multa)
 
-        btnCalendario2=view.findViewById(R.id.btnCalendario2)
-        btnCalendario2.setOnClickListener{
-            mostrarCalendario(txtFecha_devolucion)
         }
+
 
         //quedo pendiente
         /*btnBuscarUsuario=view.findViewById(R.id.btnBuscarUsuario)
@@ -276,10 +289,10 @@ class guardarPrestamoFragment: Fragment(){
 
         //boton volver
         var btnVolver: Button = view.findViewById(R.id.btnVolver)
-        btnVolver.setOnClickListener{
+        btnVolver.setOnClickListener {
             val fragmentManager = requireActivity().supportFragmentManager
             //crea la instancia del fragmentoPrincipal
-            var fragmentPrincipal = listaPrestamoFragment()
+            var fragmentPrincipal = listaMultaFragment()
             //trasaccion de fracmentos
             var transsaction = fragmentManager.beginTransaction()
             //reemplaza fragmento
@@ -289,28 +302,30 @@ class guardarPrestamoFragment: Fragment(){
             //confirma los cambios
             transsaction.commit()
         }
-        consultarPrestamo()
+        consultarMulta()
         cargarFormulario()
 
         return view
 
 
     }
+
     // vamos a crear un metodo para cargar el formula de todo
-    fun cargarFormulario(){
-        caragarTipoEstado()
+    fun cargarFormulario() {
+        caragarEstadoMulta()
     }
+
     // generar las lista del spinner
-    fun caragarTipoEstado(){
-        val tipoEstado= tipoEstado()
+    fun caragarEstadoMulta() {
+        val estado_Multa = estado_Multa()
 
         // creamos un pequeño adapter para saber como se van a mostrar los datos
-        val adapterSpinner= ArrayAdapter(
+        val adapterSpinner = ArrayAdapter(
             requireContext(),
             android.R.layout.simple_spinner_item,
-            tipoEstado.listaTipoEstado
+            estado_Multa.listaEstadoMulta
         )
-        SpinnerEstdo.adapter=adapterSpinner
+        SpinnerEstdo_multa.adapter = adapterSpinner
     }
 
     companion object {

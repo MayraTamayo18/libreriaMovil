@@ -33,6 +33,9 @@ class MainActivity : AppCompatActivity() {
         var btnPrestamo: Button =findViewById(R.id.btnPrestamo)
         btnPrestamo.setOnClickListener { CambioPrestamo() }
 
+        var btnMulta: Button =findViewById(R.id.btnMulta)
+        btnMulta.setOnClickListener { CambioMulta() }
+
 
 
 
@@ -100,6 +103,26 @@ class MainActivity : AppCompatActivity() {
 
         // Crear una instancia del fragmento
         val fragmento = listaPrestamoFragment() // Asegúrate de que PaginaPrincipalFragment es el nombre correcto del fragmento
+
+        // Comenzar la transacción de fragmentos
+        val transaction = fragmentManager.beginTransaction()
+
+        // Reemplazar el fragmento actual con el nuevo fragmento
+        transaction.replace(R.id.fragmentContainerView, fragmento) // Asegúrate de que R.id.fragmentContainerView es el ID del contenedor en tu layout
+
+        // Añadir la transacción al back stack si quieres permitir que el usuario regrese al fragmento anterior
+        transaction.addToBackStack(null)
+
+        // Confirmar los cambios
+        transaction.commit()
+    }
+
+    fun CambioMulta() {
+        // Obtener el FragmentManager del contexto actual
+        val fragmentManager = supportFragmentManager // Usa supportFragmentManager si estás en una actividad
+
+        // Crear una instancia del fragmento
+        val fragmento = listaMultaFragment() // Asegúrate de que PaginaPrincipalFragment es el nombre correcto del fragmento
 
         // Comenzar la transacción de fragmentos
         val transaction = fragmentManager.beginTransaction()
